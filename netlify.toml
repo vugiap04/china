@@ -1,0 +1,43 @@
+[build]
+  # Thư mục publish (root directory)
+  publish = "."
+
+  # Lệnh build (không cần build cho site tĩnh)
+  command = ""
+
+# Redirects - chuyển hướng từ root đến file required.html
+[[redirects]]
+  from = "/"
+  to = "/required.html"
+  status = 200
+
+# Headers cho các file tĩnh để tối ưu hiệu suất
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cấu hình cho SPA (nếu cần)
+# [[redirects]]
+#   from = "/*"
+#   to = "/required.html"
+#   status = 200
+
