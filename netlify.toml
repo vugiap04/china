@@ -5,11 +5,12 @@
   # Lệnh build (không cần build cho site tĩnh)
   command = ""
 
-# Redirects - chuyển hướng từ root đến file required.html
+# Redirects - chuyển hướng từ root đến file required.html (giữ nguyên query parameters)
 [[redirects]]
   from = "/"
   to = "/required.html"
   status = 200
+  force = false
 
 # Headers cho các file tĩnh để tối ưu hiệu suất
 [[headers]]
