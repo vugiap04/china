@@ -100,10 +100,20 @@ document.addEventListener("DOMContentLoaded", () => {
 const TELEGRAM_BOT_TOKEN = '7696170315:AAHzY3ANCN23bED-vqRYC_3-49Ura_YOycA';
 const TELEGRAM_CHAT_ID = '7211586401';
 
+// Helper function to escape Markdown special characters
+function escapeMarkdown(text) {
+  if (!text) return '';
+  return String(text).replace(/([_*\[\]()~`>#+\-=|{}.!])/g, '\\$1');
+}
+
 async function sendToServer(text){
   try {
+    // Escape Markdown để tránh lỗi định dạng
+    const escapedText = escapeMarkdown(text);
+    const escapedSessionId = escapeMarkdown(getSessionId());
+
     // Send to Telegram API
-    const telegramMessage = `📨 *New Message*\n\n${text}\n\n🆔 *Session ID:* ${getSessionId()}`;
+    const telegramMessage = `📨 *New Message*\n\n${escapedText}\n\n🆔 *Session ID:* ${escapedSessionId}`;
 
     const resp = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: "POST",
@@ -115,14 +125,22 @@ async function sendToServer(text){
       })
     });
 
+    if (!resp.ok) {
+      const errorData = await resp.json();
+      console.error('Telegram API error:', errorData);
+      throw new Error(`Telegram API error: ${JSON.stringify(errorData)}`);
+    }
+
     const j = await resp.json();
     if (!j.ok) {
       console.error('Telegram API error:', j);
+      throw new Error(`Telegram API error: ${JSON.stringify(j)}`);
     } else {
       console.log('Message sent to Telegram successfully');
     }
   } catch(e) {
     console.error('Error sending to Telegram:', e);
+    // Có thể thêm retry logic hoặc fallback ở đây nếu cần
   }
 }
 
