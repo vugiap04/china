@@ -1,0 +1,10 @@
+# Telegram Configuration - Bảo mật thông tin nhạy cảm
+js/telegram-config.js
+
+# Các file khác cần ignore (nếu có)
+*.log
+.DS_Store
+node_modules/
+.env
+.env.local
+
